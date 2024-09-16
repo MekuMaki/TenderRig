@@ -36,19 +36,50 @@ racial_code_mapping = {
     'c1801': 'Viera Female',
 }
 
-# Function to append a collection from an external Blender file
-def append_collection(race_code):
-    race_name = racial_code_mapping.get(race_code, None)
-    if race_name:
-        assets_path = os.path.join(os.path.dirname(__file__), "assets", f"{race_name}.blend")
-        if os.path.exists(assets_path):
-            collection_name = race_name
-            with bpy.data.libraries.load(assets_path, link=False) as (data_from, data_to):
-                if collection_name in data_from.collections:
-                    data_to.collections.append(collection_name)
-                    bpy.context.scene.collection.children.link(bpy.data.collections[collection_name])
-                    return bpy.data.collections[collection_name]
-    return None
+# # Function to append a collection from an external Blender file
+# def append_collection(race_code):
+#     race_name = racial_code_mapping.get(race_code, None)
+#     if race_name:
+#         assets_path = os.path.join(os.path.dirname(__file__), "assets", f"{race_name}.blend")
+#         if os.path.exists(assets_path):
+#             collection_name = race_name
+#             with bpy.data.libraries.load(assets_path, link=False) as (data_from, data_to):
+#                 if collection_name in data_from.collections:
+#                     data_to.collections.append(collection_name)
+#                     bpy.context.scene.collection.children.link(bpy.data.collections[collection_name])
+#                     return bpy.data.collections[collection_name]
+#     return None
+
+# Function to append a collection from a Blender file
+def append_race_collection(race_code):
+    # Define the path to the assets folder (where the Blender files are stored)
+    assets_folder = os.path.join(bpy.path.abspath("//"), "assets")
+    
+    # Create the name of the Blender file based on the race_code
+    race_file_name = f"{race_code}.blend"
+    race_file_path = os.path.join(assets_folder, race_file_name)
+    
+    # Check if the Blender file exists
+    if not os.path.exists(race_file_path):
+        print(f"Error: The file {race_file_path} does not exist.")
+        return
+    
+    # Path to the collection within the Blender file (assuming the collection name matches the file name)
+    collection_name = race_code  # Collection name is the same as the race code
+    
+    # Define the full path to the collection in the Blender file
+    collection_path = os.path.join(race_file_path, "Collection", collection_name)
+    
+    # Append the collection
+    bpy.ops.wm.append(
+        filepath=collection_path,
+        directory=os.path.join(race_file_path, "Collection"),
+        filename=collection_name
+    )
+    
+    print(f"Appended collection {collection_name} from {race_file_path}")
+    return {'FINISHED'}
+
 
 # Function to handle Viera ear bones
 def handle_viera_ears(armature, viera_object_name):
