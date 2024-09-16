@@ -130,7 +130,7 @@ class OBJECT_OT_append_mekrig(bpy.types.Operator):
             race_code = obj.name[:5]
             break
         
-        appended_collection = append_collection(race_code)
+        appended_collection = append_race_collection(race_code)
         if not appended_collection:
             self.report({'ERROR'}, "No collection found for race code.")
             return {'CANCELLED'}
