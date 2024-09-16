@@ -1,0 +1,16 @@
+schema_version = "1.0.0"
+
+id = "TenderRigs"
+version = "0.1.0"
+name = "TenderRigs"
+tagline = "Tools To Apply the MekRig"
+maintainer = "Meku Maki <meku.arts.studios@gmail.com>"
+type = "add-on"
+
+permissions = ["files", "network"]
+
+blender_version_min = "4.0.0"
+
+license = [
+  "SPDX:GPL-3.0",
+]

@@ -1,0 +1,10 @@
+name: "TenderRigs"
+id_name: "tender"
+author: "Meku"
+version: [0, 1, 0]
+blender: [4, 0, 0]
+location: "View3D > UI > TenderRigs"
+description: "Script addon to test automatic rig import for Mektools"
+warning: ""
+doc_url: ""
+category: "TenderRig"
